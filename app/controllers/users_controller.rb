@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @user = User.create(params[:user])
     if @user.save
       flash[:success] = "Welcome to Sketchmanager"
+      sign_in(@user)
       redirect_to @user
     else
       @title = "Sign Up"
