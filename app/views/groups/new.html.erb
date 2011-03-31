@@ -1,0 +1,10 @@
+<h1>Create Group</h1>
+<%= form_for(@group) do |f| %>
+
+	<%= render 'form', :f => f %>
+	
+	<div class='actions'>
+		<%= f.submit "Create Group" %>
+	</div>
+	
+<% end %>

@@ -1,5 +1,7 @@
 Sketchmanager::Application.routes.draw do
 
+  resources :groups
+
   resources :users
   
   resources :sessions, :only => [:new, :create, :destroy]
