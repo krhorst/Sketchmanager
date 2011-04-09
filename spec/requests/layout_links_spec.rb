@@ -21,7 +21,6 @@ describe "LayoutLinks" do
     get '/signup'
     response.should have_selector('title', :content => 'Sign Up')
   end
-
   
   it "should have the right links in the layout" do
     visit root_path
@@ -64,6 +63,13 @@ describe "LayoutLinks" do
       response.should have_selector("a", :href => user_path(@user), :content => "Profile")
     end
     
+    it "should display the sidebar" do
+      visit root_path
+      response.should have_selector("aside#sidebar")
+    end
+    
   end
+  
+  
   
 end
