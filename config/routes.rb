@@ -1,10 +1,14 @@
 Sketchmanager::Application.routes.draw do
 
-  resources :groups
+  resources :groups, :shallow => true do
+    resources :scenes
+  end
 
   resources :users
   
   resources :sessions, :only => [:new, :create, :destroy]
+
+  resources :scenes
 
   get "pages/home"
 

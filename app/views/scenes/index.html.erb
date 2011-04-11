@@ -1,0 +1,11 @@
+<h1><%= @group.name %> - Scenes</h1>
+	<h3><%= link_to 'Add a Scene', new_group_scene_path(@group) %></h3>
+	<% if !@group.scenes.empty? %>
+		<ul>
+		<% @group.scenes.each do |scene| %>
+			<li><%= link_to scene.name, scene_path(scene.id) %></li>
+		<% end %>
+		</ul>
+	<% else %>
+		This group does not currently have any scenes.
+	<% end%>

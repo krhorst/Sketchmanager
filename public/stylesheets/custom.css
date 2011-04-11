@@ -85,16 +85,24 @@ nav ul li a:hover {
 	margin-top: 1em;
 }
 
+#sidebar ul, #sidebar li {
+	display: block;
+}
+
+#sidebar nav ul > li {
+	font-weight: bold;
+}
+
 /* Content */
 
 #main {
-	width: 600px;
+	width: 550px;
 	float:left;
 }
 
 /* Forms */
 
-.field input {
+.field, .field input, .field label, .field textarea {
 	display: block;
 }
 

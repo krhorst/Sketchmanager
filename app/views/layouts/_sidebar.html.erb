@@ -2,8 +2,16 @@
 <aside id="sidebar">
 	<nav>
 		<ul>
-			<li><%= link_to "Groups", groups_path %>
-		</ul>	
+			<li><%= link_to "All Groups", groups_path %>
+			<% @groups.each do |g| %>
+				<li><%= g.name %></li>
+				<ul>
+					<li><%= link_to 'Details', group_path(g) %></li>
+					<li><%= link_to 'Scenes', group_scenes_path(:group_id => g) %></li>
+				</ul>
+			<% end %>
+
+		</ul>
 	</nav>	
 </aside>
 <% end %>
