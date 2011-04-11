@@ -52,6 +52,7 @@ nav {
 	background-color: white;
 	padding: 0 0.7em;
 	white-space: nowrap;
+	text-align: left;
 }
 
 nav ul {
