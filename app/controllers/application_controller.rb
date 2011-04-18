@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper
 
+  before_filter :authenticate
   before_filter :get_groups
 
   def authenticate

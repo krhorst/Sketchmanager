@@ -48,5 +48,20 @@ describe "Groups" do
     end
     
   end
+  
+  describe "Show Group" do
+    
+    before(:each) do
+      integration_sign_in(Factory(:user))
+      @group = Factory(:group)
+    end
+    
+    it "should have a link to edit the group" do
+      visit group_path(@group)
+      click_link "Edit"
+      response.should render_template('groups/edit')
+    end
+    
+  end
 
 end

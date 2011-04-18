@@ -1,4 +1,8 @@
 class SessionsController < ApplicationController
+  
+  skip_before_filter :authenticate
+  skip_before_filter :get_groups
+  
   def new
     @title = "Sign In"
   end
@@ -15,6 +19,7 @@ class SessionsController < ApplicationController
       sign_in user
       redirect_to user
     end    
+
   end
   
   def destroy

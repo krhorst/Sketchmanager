@@ -1,21 +1,18 @@
 class GroupsController < ApplicationController
   
-  before_filter :authenticate
-  
   def new
     @title = "New Group"
     @group = Group.new
   end
 
   def create
-    @group = Group.create(params[:group])
+    @group = current_user.groups.create(params[:group])
     
     if @group.save
-      flash[:success] = "Group successfully created"
-      redirect_to @group
+      redirect_to @group, :flash =>{ :success => "Group successfully created" }
     else
       @title = "New Group"
-      render 'new'
+      render :new
     end
   
   end
@@ -27,12 +24,17 @@ class GroupsController < ApplicationController
 
   def edit
     @title = "Edit Group"
+    @group = Group.find(params[:id])
   end
 
   def update
-  end
-
-  def destroy
+    @group = Group.find(params[:id])
+    if (@group.update_attributes(params[:group]))
+      redirect_to @group, :flash => { :success => "Group updated." }
+    else
+      @title = "Edit Group"
+      render 'edit'
+    end
   end
 
   def index

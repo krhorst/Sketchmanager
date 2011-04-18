@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
                         :length => { :within => 6..40 } 
                         
   before_save :encrypt_password
+  has_many :groups
+  has_many :memberships
   
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
@@ -28,6 +30,7 @@ class User < ActiveRecord::Base
   end
   
   def self.authenticate_with_salt(id, cookie_salt)
+    return nil if id.nil?
     user = find_by_id(id)
     return nil if user.nil?
     return user if user.salt == cookie_salt

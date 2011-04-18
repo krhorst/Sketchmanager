@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   
-  before_filter :authenticate, :only => [:edit, :update]
+  skip_before_filter :authenticate, :only => [:new, :create]
   
   def new
     @user = User.new
@@ -14,9 +14,8 @@ class UsersController < ApplicationController
   def create
     @user = User.create(params[:user])
     if @user.save
-      flash[:success] = "Welcome to Sketchmanager"
       sign_in(@user)
-      redirect_to @user
+      redirect_to @user, :flash => { :success => "Welcome to Sketchmanager" }
     else
       @title = "Sign Up"
       render 'new'  
@@ -31,13 +30,11 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if (@user.update_attributes(params[:user]))
-      flash[:success] = "Profile updated."
-      redirect_to @user
+      redirect_to @user, :flash => { :success => "Profile updated." }
     else
       @title = "Edit User"
       render 'edit'
     end
-    
   end
   
 end

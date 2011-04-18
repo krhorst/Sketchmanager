@@ -37,6 +37,12 @@ render_views
           end.should_not change(Group, :count)
         end
       
+        it "should not create a membership" do
+          lambda do
+            post :create, :group => @attr
+          end.should_not change(Membership, :count)
+        end
+      
         it "should have the right title" do
           post :create, :group => @attr
           response.should have_selector("title", :content => "New Group")
@@ -47,7 +53,7 @@ render_views
           response.should render_template('new')
         end
       
-    end
+      end
     
       describe "success" do
     
@@ -61,12 +67,18 @@ render_views
           end.should change(Group,:count).by(1)
         end
     
+        it "should create a membership" do
+          lambda do
+            post :create, :group => @attr
+          end.should change(Membership,:count).by(1)
+        end
+    
         it "should redirect to the group page" do
           post :create, :group => @attr
           response.should redirect_to(group_path(assigns(:group)))
         end
-  
-    end
+    
+      end
     
     end
 
@@ -89,6 +101,61 @@ render_views
       
     
   end
+
+    describe "PUT update" do
+      
+       before(:each) do
+          @group = Factory(:group)
+        end
+
+        describe "failure" do
+
+          before(:each) do
+            @attr = { :name => "" }
+          end
+
+          it "should render the edit page" do
+            put :update, :id => @group, :group => @attr
+            response.should render_template('edit')
+          end
+
+          it "should have the right title" do
+            put :update, :id => @group, :group => @attr
+            response.should have_selector("title", :content => "Edit Group")
+
+          end
+
+        end
+
+        describe "success" do
+
+          before(:each) do
+            @attr = { 
+                      :name => "New Name"
+                    }
+          end
+
+          it "should change the user's attributes" do
+            put :update, :id => @group, :group => @attr
+            @group.reload
+            @group.name.should == @attr[:name]
+          end
+
+          it "should redirect to the group show page" do
+            put :update, :id => @group, :group => @attr
+            @group.reload
+            response.should redirect_to(group_path(@group))
+          end
+
+          it "should have a flash message" do
+            put :update, :id => @group, :group => @attr
+            flash[:success].should =~ /updated/i
+          end
+
+        end
+
+      
+    end  
 
     describe "GET 'show'" do
     

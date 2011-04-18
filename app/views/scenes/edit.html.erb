@@ -1,0 +1,12 @@
+<h1>Create Scene</h1>
+<%= form_for(@scene, @group) do |f| %>
+
+	<%= render 'form', :f => f %>
+	
+	<%= f.hidden_field :group_id %>
+	
+	<div class='actions'>
+		<%= f.submit "Update Scene" %>
+	</div>
+	
+<% end %>
