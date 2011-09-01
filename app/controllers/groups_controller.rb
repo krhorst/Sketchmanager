@@ -3,10 +3,11 @@ class GroupsController < ApplicationController
   def new
     @title = "New Group"
     @group = Group.new
+    @user_id = current_user.id
   end
 
   def create
-    @group = current_user.groups.create(params[:group])
+    @group = Group.create(params[:group])
     
     if @group.save
       redirect_to @group, :flash =>{ :success => "Group successfully created" }
@@ -39,7 +40,7 @@ class GroupsController < ApplicationController
 
   def index
     @title = "All Groups"
-    @groups = Group.all
+    @groups = Group.find(:all)
   end
 
 end

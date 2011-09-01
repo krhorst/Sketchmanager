@@ -7,6 +7,7 @@ class Group < ActiveRecord::Base
   has_many :scenes
   belongs_to :user
   has_many :memberships
+  has_many :users, :through => :memberships
 
   def to_param
     "#{id}-#{name.parameterize}"
@@ -15,7 +16,7 @@ class Group < ActiveRecord::Base
   private
 
   def create_owner_membership
-    self.memberships.create({ :user_id => self.user_id, :level => '4' })
+    self.memberships.create({ :user_id => self.user_id, :level => '4', :type => 'administrator' })
   end
   
 end

@@ -58,7 +58,7 @@ render_views
       describe "success" do
     
         before (:each) do
-          @attr = {:name => "Test Group"}
+          @attr = {:name => "Test Group Number", :user_id => @user}
         end
     
         it "should create a group" do
@@ -178,10 +178,10 @@ render_views
     describe "GET 'index'" do
 
       
-        before(:each) do
-        group_one = Factory(:group, :name => "First Group")
-        group_two = Factory(:group, :name => "Second Group")
-        group_three = Factory(:group, :name => "Third Group")
+      before(:each) do
+        group_one = Factory(:group, :name => "First Group", :user_id => @user)
+        group_two = Factory(:group, :name => "Second Group", :user_id => @user)
+        group_three = Factory(:group, :name => "Third Group", :user_id => @user)
         @groups = [group_one, group_two, group_three]
       end
       
@@ -195,13 +195,12 @@ render_views
         response.should have_selector('title', :content => "All Groups")
       end
       
-        it "should have an element for each user" do
+        it "should have an element for each group" do
         get :index
         @groups.each do |g|
           response.should have_selector('li', :content => g.name)
         end
       end
-      
 
     end
   

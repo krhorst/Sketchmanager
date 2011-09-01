@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   has_many :groups
   has_many :memberships
+  has_many :groups, :through => :memberships
   
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)

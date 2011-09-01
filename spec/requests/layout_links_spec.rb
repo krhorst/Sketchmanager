@@ -54,16 +54,6 @@ describe "LayoutLinks" do
       click_button
     end
     
-    it "should have a signout link" do
-      visit root_path
-      response.should have_selector("a", :href => signout_path, :content => "Sign Out")
-    end
-    
-    it "should have a profile link" do
-      visit root_path
-      response.should have_selector("a", :href => user_path(@user), :content => "Profile")
-    end
-    
     it "should have a settings link" do
       visit root_path
       response.should have_selector("a", :href => edit_user_path(@user), :content => "Settings")

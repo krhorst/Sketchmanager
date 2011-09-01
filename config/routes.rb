@@ -8,7 +8,7 @@ Sketchmanager::Application.routes.draw do
   
   resources :sessions, :only => [:new, :create, :destroy]
 
-  resources :scenes
+  resources :scenes, :except => [:index]
 
   get "pages/home"
 
